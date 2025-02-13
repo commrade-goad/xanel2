@@ -15,11 +15,34 @@ Game::~Game() {
     CloseWindow();
 }
 
+void Game::logic() {
+    // do something here.
+}
+
+void Game::draw() {
+    BeginDrawing();
+
+    ClearBackground(RAYWHITE);
+
+    DrawRectangleRec(this->player, BLACK);
+
+    EndDrawing();
+}
+
+void Game::init() {
+    this->player = {
+        .x = 0,
+        .y = 0,
+        .width = 100,
+        .height = 100
+    };
+}
+
 void Game::game_loop() {
+    this->init();
     while (!WindowShouldClose()) {
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
-        EndDrawing();
+        this->logic();
+        this->draw();
     }
 }
 
