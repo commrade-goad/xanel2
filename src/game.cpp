@@ -30,6 +30,7 @@ void Game::draw() {
     this->drawFromCamera();
 
     // draw hud if needed
+    
     EndDrawing();
 }
 
@@ -38,7 +39,7 @@ void Game::drawFromCamera() {
 
     for (auto& [z_index, objects] : this->objman.sortedData) {
         for (auto& obj : objects) {
-            DrawRectangleRec(obj->rec, BLACK);
+            obj->render();
         }
     }
 
@@ -46,6 +47,7 @@ void Game::drawFromCamera() {
 }
 
 void Game::init() {
+    this->objman = ObjectManager();
     // init camera
     this->cam = {
         .offset = {
@@ -59,8 +61,6 @@ void Game::init() {
         .rotation = 0.0f,
         .zoom = 1.0f,
     };
-    // init the obj and obj manager
-    this->objman = ObjectManager();
     Object player = Object(
         (Rectangle){
             .x = 0,
@@ -70,8 +70,7 @@ void Game::init() {
         },
         1
     );
-    this->objman.data.push_back(player);
-    this->objman.addObject(&this->objman.data.back());
+    this->objman.appendObject(player);
 }
 
 void Game::game_loop() {

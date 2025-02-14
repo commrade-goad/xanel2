@@ -11,6 +11,7 @@ public:
 
     Object(Rectangle rec, int z_index);
     ~Object();
+    void render();
 };
 
 struct ObjectManager {
@@ -21,6 +22,7 @@ public:
     ObjectManager();
     ~ObjectManager();
 
+    void appendObject(Object obj);
     void addObject(Object* obj);
     void remObject(Object* obj);
 };

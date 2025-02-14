@@ -10,11 +10,14 @@ Object::Object(Rectangle rec, int z_index) {
 
 Object::~Object() {}
 
+void Object::render() {
+    DrawRectangleRec(this->rec, BLACK);
+}
+
 // OBJECT MANAGER
+// TODO: add sync to resync the sortedData with the new z-index.
 
 ObjectManager::ObjectManager() {
-    // reserve more if there is more data later.
-    // less realloc more better.
     this->sortedData.reserve(10);
 }
 
@@ -25,12 +28,18 @@ void ObjectManager::addObject(Object* obj) {
 }
 
 void ObjectManager::remObject(Object* obj) {
-    auto pos = this->sortedData.find(obj->z_index);
-    if (pos != this->sortedData.end()) {
-        auto& data = this->sortedData[obj->z_index];
-        auto pos2 = std::ranges::find(data.begin(), data.end(), obj);
-        if (pos2 != data.end()) {
-            data.erase(pos2);
+    // TODO: remove the data from this->data too.
+    auto ur_pos = this->sortedData.find(obj->z_index);
+    if (ur_pos != this->sortedData.end()) {
+        auto& sdata = this->sortedData[obj->z_index];
+        auto a_pos = std::ranges::find(sdata.begin(), sdata.end(), obj);
+        if (a_pos != sdata.end()) {
+            sdata.erase(a_pos);
         }
     }
+}
+
+void ObjectManager::appendObject(Object obj) {
+    this->data.push_back(obj);
+    this->addObject(&this->data.back());
 }
