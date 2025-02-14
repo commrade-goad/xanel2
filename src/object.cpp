@@ -43,6 +43,17 @@ void ObjectManager::remObject(Object* obj) {
     }
 }
 
+void ObjectManager::remObject(size_t id) {
+    // write the remObject but with id
+    for (int i = 0; i < this->data.size(); i++) {
+        const auto& curData = this->data[i];
+        if (curData.id == id) {
+            this->remObject(&this->data[i]);
+            return;
+        }
+    }
+}
+
 void ObjectManager::appendObject(Object obj) {
     this->data.push_back(obj);
     auto dptr = &this->data.back();

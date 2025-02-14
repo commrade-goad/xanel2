@@ -59,6 +59,10 @@ void Game::processInput() {
     if (IsKeyDown(KEY_A)) {
 
     }
+    // WILL BE REMOVED LATER
+    if (IsKeyPressed(KEY_R)) {
+        this->objman.remObject(1);
+    }
 }
 
 void Game::init() {
