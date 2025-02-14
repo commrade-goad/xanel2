@@ -26,7 +26,7 @@ cmake ..
 
 ```sh
 # if you use make
-make -j${nproc}
+make
 # ninja if you specify using ninja
 ninja -C build
 ```
