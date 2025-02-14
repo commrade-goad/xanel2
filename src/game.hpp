@@ -11,14 +11,15 @@ public:
     Camera2D cam;
     ObjectManager objman;
 
-    void logic();
+    void logic(float dt);
     void draw();
+    void processInput();
     void drawFromCamera();
     void init();
 
     Game(const char* name, Vector2 wsize);
     ~Game();
-    void game_loop();
+    void gameLoop();
 };
 
 #endif // GAME_HPP_

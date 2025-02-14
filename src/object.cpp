@@ -28,7 +28,6 @@ void ObjectManager::addObject(Object* obj) {
 }
 
 void ObjectManager::remObject(Object* obj) {
-    // TODO: remove the data from this->data too.
     auto ur_pos = this->sortedData.find(obj->z_index);
     if (ur_pos != this->sortedData.end()) {
         auto& sdata = this->sortedData[obj->z_index];
@@ -36,10 +35,17 @@ void ObjectManager::remObject(Object* obj) {
         if (a_pos != sdata.end()) {
             sdata.erase(a_pos);
         }
+        auto& saved_data = this->data;
+        auto dpos = std::ranges::find(saved_data.begin(), saved_data.end(), *obj);
+        if (dpos != saved_data.end()) {
+            saved_data.erase(dpos);
+        }
     }
 }
 
 void ObjectManager::appendObject(Object obj) {
     this->data.push_back(obj);
-    this->addObject(&this->data.back());
+    auto dptr = &this->data.back();
+    dptr->id = this->data.size();
+    this->addObject(dptr);
 }

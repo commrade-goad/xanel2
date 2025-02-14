@@ -16,7 +16,7 @@ Game::~Game() {
     CloseWindow();
 }
 
-void Game::logic() {
+void Game::logic(float dt) {
     // do something here.
 }
 
@@ -46,6 +46,21 @@ void Game::drawFromCamera() {
     EndMode2D();
 }
 
+void Game::processInput() {
+    if (IsKeyDown(KEY_W)) {
+
+    }
+    if (IsKeyDown(KEY_S)) {
+
+    }
+    if (IsKeyDown(KEY_D)) {
+
+    }
+    if (IsKeyDown(KEY_A)) {
+
+    }
+}
+
 void Game::init() {
     this->objman = ObjectManager();
     // init camera
@@ -73,10 +88,12 @@ void Game::init() {
     this->objman.appendObject(player);
 }
 
-void Game::game_loop() {
+void Game::gameLoop() {
     this->init();
     while (!WindowShouldClose()) {
-        this->logic();
+        float dt = GetFrameTime();
+        this->processInput();
+        this->logic(dt);
         this->draw();
     }
 }

@@ -2,6 +2,6 @@
 
 int main() {
     Game g = Game("xanel2", {1280, 720});
-    g.game_loop();
+    g.gameLoop();
     return 0;
 }

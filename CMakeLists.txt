@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.24)
 
-project(Xanel2)
+project(xanel2)
 set(CMAKE_CXX_STANDARD 23)
 
 include(FetchContent)
@@ -15,11 +15,11 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(raylib)
 
-add_executable(xanel2 src/main.cpp src/game.cpp src/object.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp src/game.cpp src/object.cpp)
 
-target_link_libraries(xanel2 PRIVATE raylib)
+target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 
-target_include_directories(xanel2 PRIVATE ${raylib_SOURCE_DIR}/src)
+target_include_directories(${PROJECT_NAME} PRIVATE ${raylib_SOURCE_DIR}/src)
 
 # If Raylib does not automatically define the proper target, use:
-# target_link_libraries(xanel2 PRIVATE ${raylib_LIBRARIES})
+# target_link_libraries(${PROJECT_NAME} PRIVATE ${raylib_LIBRARIES})
