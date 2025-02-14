@@ -2,19 +2,20 @@
 #define GAME_HPP_
 
 #include "raylib.h"
+#include "object.hpp"
 
 struct Game {
-private:
+public:
     Vector2 window_size;
     const char* name;
-    // wil be removed later
-    Rectangle player;
+    Camera2D cam;
+    ObjectManager objman;
 
     void logic();
     void draw();
+    void drawFromCamera();
     void init();
 
-public:
     Game(const char* name, Vector2 wsize);
     ~Game();
     void game_loop();

@@ -15,7 +15,7 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(raylib)
 
-add_executable(xanel2 src/main.cpp src/game.cpp)
+add_executable(xanel2 src/main.cpp src/game.cpp src/object.cpp)
 
 target_link_libraries(xanel2 PRIVATE raylib)
 
