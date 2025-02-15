@@ -10,7 +10,7 @@ public:
     const char* name;
     Camera2D cam;
     ObjectManager objman;
-    Object* player;
+    std::shared_ptr<Object> player;
 
     void logic(float dt);
     void draw();

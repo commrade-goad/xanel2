@@ -23,47 +23,41 @@ ObjectManager::ObjectManager() {
 
 ObjectManager::~ObjectManager() {}
 
-void ObjectManager::addObject(Object* obj) {
+void ObjectManager::addObject(std::shared_ptr<Object> obj) {
     this->sortedData[obj->z_index].push_back(obj);
 }
 
-void ObjectManager::remObject(Object* obj) {
+void ObjectManager::remObject(std::shared_ptr<Object> obj) {
     auto ur_pos = this->sortedData.find(obj->z_index);
     if (ur_pos != this->sortedData.end()) {
-        std::vector<Object*>& sdata = this->sortedData[obj->z_index];
+        std::vector<std::shared_ptr<Object>>& sdata = this->sortedData[obj->z_index];
         auto a_pos = std::ranges::find(sdata.begin(), sdata.end(), obj);
         if (a_pos != sdata.end()) {
             sdata.erase(a_pos);
-        }
-        std::vector<Object>& saved_data = this->data;
-        auto dpos = std::ranges::find(saved_data.begin(), saved_data.end(), *obj);
-        if (dpos != saved_data.end()) {
-            saved_data.erase(dpos);
         }
     }
 }
 
 void ObjectManager::remObject(size_t id) {
-    Object* optr = this->getObject(id);
+    std::shared_ptr<Object> optr = this->getObject(id);
     if (optr) {
         this->remObject(optr);
     }
 }
 
-Object* ObjectManager::appendObject(Object obj) {
-    this->data.push_back(obj);
-    Object* dptr = &this->data.back();
-    dptr->id = this->data.size();
+std::shared_ptr<Object> ObjectManager::appendObject(const Object& obj) {
+    // TODO: add counter to gen id
+    std::shared_ptr<Object> dptr = std::make_shared<Object>(obj);
     this->addObject(dptr);
     return dptr;
 }
 
-// if object doesnt exist return nullptr
-Object* ObjectManager::getObject(size_t id) {
-    for (int i = 0; i < this->data.size(); i++) {
-        const Object& curData = this->data[i];
-        if (curData.id == id) {
-            return &this->data[i];
+std::shared_ptr<Object> ObjectManager::getObject(size_t id) {
+    for (auto& sdata : this->sortedData) {
+        for (auto& obj : sdata.second) {
+            if (obj->id == id) {
+                return obj;
+            }
         }
     }
     return nullptr;
