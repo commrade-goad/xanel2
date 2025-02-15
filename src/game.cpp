@@ -10,6 +10,7 @@ Game::Game(const char* name, Vector2 wsize) {
 
     this->name = name;
     this->window_size = wsize;
+    this->player_id = 0;
 }
 
 Game::~Game() {
@@ -61,7 +62,7 @@ void Game::processInput() {
     }
     // WILL BE REMOVED LATER
     if (IsKeyPressed(KEY_R)) {
-        this->objman.remObject(1);
+        this->objman.remObject(this->player_id);
     }
 }
 
@@ -89,7 +90,7 @@ void Game::init() {
         },
         1
     );
-    this->objman.appendObject(player);
+    this->player_id = this->objman.appendObject(player)->id;
 }
 
 void Game::gameLoop() {

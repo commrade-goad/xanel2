@@ -44,19 +44,27 @@ void ObjectManager::remObject(Object* obj) {
 }
 
 void ObjectManager::remObject(size_t id) {
-    // write the remObject but with id
-    for (int i = 0; i < this->data.size(); i++) {
-        const auto& curData = this->data[i];
-        if (curData.id == id) {
-            this->remObject(&this->data[i]);
-            return;
-        }
+    Object* optr = this->getObject(id);
+    if (optr) {
+        this->remObject(optr);
     }
 }
 
-void ObjectManager::appendObject(Object obj) {
+Object* ObjectManager::appendObject(Object obj) {
     this->data.push_back(obj);
     auto dptr = &this->data.back();
     dptr->id = this->data.size();
     this->addObject(dptr);
+    return dptr;
+}
+
+// if object doesnt exist return nullptr
+Object* ObjectManager::getObject(size_t id) {
+    for (int i = 0; i < this->data.size(); i++) {
+        const auto& curData = this->data[i];
+        if (curData.id == id) {
+            return &this->data[i];
+        }
+    }
+    return nullptr;
 }

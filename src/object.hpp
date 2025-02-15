@@ -31,10 +31,11 @@ public:
     ObjectManager();
     ~ObjectManager();
 
-    void appendObject(Object obj);
+    Object* appendObject(Object obj);
     void addObject(Object* obj);
     void remObject(Object* obj);
     void remObject(size_t id);
+    Object* getObject(size_t id);
 };
 
 #endif // OBJECT_HPP_
