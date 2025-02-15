@@ -30,12 +30,12 @@ void ObjectManager::addObject(Object* obj) {
 void ObjectManager::remObject(Object* obj) {
     auto ur_pos = this->sortedData.find(obj->z_index);
     if (ur_pos != this->sortedData.end()) {
-        auto& sdata = this->sortedData[obj->z_index];
+        std::vector<Object*>& sdata = this->sortedData[obj->z_index];
         auto a_pos = std::ranges::find(sdata.begin(), sdata.end(), obj);
         if (a_pos != sdata.end()) {
             sdata.erase(a_pos);
         }
-        auto& saved_data = this->data;
+        std::vector<Object>& saved_data = this->data;
         auto dpos = std::ranges::find(saved_data.begin(), saved_data.end(), *obj);
         if (dpos != saved_data.end()) {
             saved_data.erase(dpos);
@@ -52,7 +52,7 @@ void ObjectManager::remObject(size_t id) {
 
 Object* ObjectManager::appendObject(Object obj) {
     this->data.push_back(obj);
-    auto dptr = &this->data.back();
+    Object* dptr = &this->data.back();
     dptr->id = this->data.size();
     this->addObject(dptr);
     return dptr;
@@ -61,7 +61,7 @@ Object* ObjectManager::appendObject(Object obj) {
 // if object doesnt exist return nullptr
 Object* ObjectManager::getObject(size_t id) {
     for (int i = 0; i < this->data.size(); i++) {
-        const auto& curData = this->data[i];
+        const Object& curData = this->data[i];
         if (curData.id == id) {
             return &this->data[i];
         }

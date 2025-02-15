@@ -3,7 +3,7 @@
 #include "raylib.h"
 #include <cmath>
 
-#define CAMSPEED 600
+#define CAMSPEED 90
 
 Game::Game(const char* name, Vector2 wsize) {
     SetTraceLogLevel(LOG_ERROR);
