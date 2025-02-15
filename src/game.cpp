@@ -2,6 +2,7 @@
 #include "object.hpp"
 #include "raylib.h"
 #include <cmath>
+#include <memory>
 
 #define CAMSPEED 90
 
@@ -94,16 +95,10 @@ void Game::init() {
         .rotation = 0.0f,
         .zoom = 1.0f,
     };
-    Object player = Object(
-        (Rectangle){
-            .x = 0,
-            .y = 0,
-            .width = 100,
-            .height = 100
-        },
-        1
+    std::shared_ptr<Object> player = std::make_shared<Object>(
+        Object({.x = 0, .y = 0, .width = 100, .height = 100}, 1)
     );
-    this->player = this->objman.appendObject(player);
+    this->player = this->objman.addObject(player);
 }
 
 void Game::gameLoop() {

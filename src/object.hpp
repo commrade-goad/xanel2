@@ -31,8 +31,7 @@ public:
     ObjectManager();
     ~ObjectManager();
 
-    std::shared_ptr<Object> appendObject(const Object& obj);
-    void addObject(std::shared_ptr<Object> obj);
+    std::shared_ptr<Object> addObject(std::shared_ptr<Object> obj);
     void remObject(std::shared_ptr<Object> obj);
     void remObject(size_t id);
     std::shared_ptr<Object> getObject(size_t id);

@@ -1,6 +1,5 @@
 #include "object.hpp"
 #include "raylib.h"
-#include <iostream>
 
 // OBJECT
 
@@ -26,8 +25,9 @@ ObjectManager::ObjectManager() {
 
 ObjectManager::~ObjectManager() {}
 
-void ObjectManager::addObject(std::shared_ptr<Object> obj) {
+std::shared_ptr<Object> ObjectManager::addObject(std::shared_ptr<Object> obj) {
     this->sortedData[obj->z_index].push_back(obj);
+    return obj;
 }
 
 void ObjectManager::remObject(std::shared_ptr<Object> obj) {
@@ -43,16 +43,9 @@ void ObjectManager::remObject(std::shared_ptr<Object> obj) {
 
 void ObjectManager::remObject(size_t id) {
     std::shared_ptr<Object> optr = this->getObject(id);
-    std::cout << "the id : " << optr->id << " and the supplied id : " << id << std::endl;
     if (optr) {
         this->remObject(optr);
     }
-}
-
-std::shared_ptr<Object> ObjectManager::appendObject(const Object& obj) {
-    std::shared_ptr<Object> dptr = std::make_shared<Object>(obj);
-    this->addObject(dptr);
-    return dptr;
 }
 
 std::shared_ptr<Object> ObjectManager::getObject(size_t id) {
