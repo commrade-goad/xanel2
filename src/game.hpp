@@ -10,7 +10,7 @@ public:
     const char* name;
     Camera2D cam;
     ObjectManager objman;
-    size_t player_id;
+    Object* player;
 
     void logic(float dt);
     void draw();

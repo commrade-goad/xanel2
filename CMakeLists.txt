@@ -5,7 +5,13 @@ set(CMAKE_CXX_STANDARD 23)
 
 include(FetchContent)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 set(RAYLIB_VERSION 5.5)
+set(BUILD_EXAMPLES OFF)
+set(raylib_USE_STATIC_LIBS ON)
+set(BUILD_SHARED_LIBS OFF)
+set(GLFW_BUILD_WAYLAND ON)
+set(PLATFORM Desktop)
 
 FetchContent_Declare(
     raylib
@@ -20,6 +26,3 @@ add_executable(${PROJECT_NAME} src/main.cpp src/game.cpp src/object.cpp)
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${raylib_SOURCE_DIR}/src)
-
-# If Raylib does not automatically define the proper target, use:
-# target_link_libraries(${PROJECT_NAME} PRIVATE ${raylib_LIBRARIES})

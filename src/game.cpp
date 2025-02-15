@@ -1,6 +1,9 @@
 #include "game.hpp"
 #include "object.hpp"
 #include "raylib.h"
+#include <cmath>
+
+#define CAMSPEED 600
 
 Game::Game(const char* name, Vector2 wsize) {
     SetTraceLogLevel(LOG_ERROR);
@@ -10,7 +13,7 @@ Game::Game(const char* name, Vector2 wsize) {
 
     this->name = name;
     this->window_size = wsize;
-    this->player_id = 0;
+    this->player = nullptr;
 }
 
 Game::~Game() {
@@ -18,7 +21,17 @@ Game::~Game() {
 }
 
 void Game::logic(float dt) {
-    // do something here.
+    // pan camera to player.
+    Vector2 newCamPos = {
+        .x = std::lerp(this->cam.target.x, this->player->rec.x, dt * CAMSPEED),
+        .y = std::lerp(this->cam.target.y, this->player->rec.y, dt * CAMSPEED)
+    };
+    // TODO: make if the movement is 0.01f it will not move the cam
+    this->cam.target = newCamPos;
+    this->cam.offset = (Vector2){
+        .x = (this->window_size.x - this->player->rec.width) / 2.0f,
+        .y = (this->window_size.y - this->player->rec.height) / 2.0f,
+    };
 }
 
 void Game::draw() {
@@ -62,7 +75,7 @@ void Game::processInput() {
     }
     // WILL BE REMOVED LATER
     if (IsKeyPressed(KEY_R)) {
-        this->objman.remObject(this->player_id);
+        this->objman.remObject(this->player->id);
     }
 }
 
@@ -90,7 +103,7 @@ void Game::init() {
         },
         1
     );
-    this->player_id = this->objman.appendObject(player)->id;
+    this->player = this->objman.appendObject(player);
 }
 
 void Game::gameLoop() {
