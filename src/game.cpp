@@ -1,6 +1,7 @@
 #include "game.hpp"
 #include "object.hpp"
 #include "raylib.h"
+#include "player.hpp"
 #include <cmath>
 #include <memory>
 
@@ -95,8 +96,8 @@ void Game::init() {
         .rotation = 0.0f,
         .zoom = 1.0f,
     };
-    std::shared_ptr<Object> player = std::make_shared<Object>(
-        Object({.x = 0, .y = 0, .width = 100, .height = 100}, 1)
+    std::shared_ptr<Player> player = std::make_shared<Player>(
+        Player(100)
     );
     this->objman.addObject(player);
     this->player = player;

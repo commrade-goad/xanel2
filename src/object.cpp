@@ -2,6 +2,7 @@
 #include "raylib.h"
 
 // OBJECT
+Object::Object() {}
 
 Object::Object(Rectangle rec, int z_index) {
     this->rec = rec;

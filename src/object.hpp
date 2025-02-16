@@ -10,12 +10,12 @@ public:
     size_t id;
     Rectangle rec;
     int z_index;
-    Vector2 speed;
 
     bool operator==(const Object& other) const {
         return this->id == other.id;
     }
 
+    Object();
     Object(Rectangle rec, int z_index);
     ~Object();
     void render();

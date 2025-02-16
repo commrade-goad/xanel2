@@ -21,7 +21,9 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(raylib)
 
-add_executable(${PROJECT_NAME} src/main.cpp src/game.cpp src/object.cpp)
+set(FILE_IN src/main.cpp src/game.cpp src/object.cpp src/player.cpp)
+
+add_executable(${PROJECT_NAME} ${FILE_IN})
 
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 
