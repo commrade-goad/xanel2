@@ -5,7 +5,7 @@
 #include <cmath>
 #include <memory>
 
-#define CAMSPEED 90
+#define CAMSPEED 30
 
 Game::Game(const char* name, Vector2 wsize) {
     SetTraceLogLevel(LOG_ERROR);
@@ -34,6 +34,13 @@ void Game::logic(float dt) {
         .x = (this->window_size.x - this->player->rec.width) / 2.0f,
         .y = (this->window_size.y - this->player->rec.height) / 2.0f,
     };
+
+    // player movement
+    const size_t maxSpeed = this->player->maxSpeed;
+    this->player->rec.x += std::clamp(this->player->speed.x, -(float)maxSpeed, (float)maxSpeed) * dt;
+    this->player->rec.y += std::clamp(this->player->speed.y, -(float)maxSpeed, (float)maxSpeed) * dt;
+    this->player->speed.x *= 0.2;
+    this->player->speed.y *= 0.2;
 }
 
 void Game::draw() {
@@ -46,7 +53,8 @@ void Game::draw() {
     this->drawFromCamera();
 
     // draw hud if needed
-    
+    DrawFPS(0, 0);
+
     EndDrawing();
 }
 
@@ -63,17 +71,20 @@ void Game::drawFromCamera() {
 }
 
 void Game::processInput() {
+    static const int SPEED = this->player->maxSpeed/2;
+    // so this is the cpp way of doing `Player* p = (Player*)this->player`
+    /*auto p = std::dynamic_pointer_cast<Player>(this->player);*/
     if (IsKeyDown(KEY_W)) {
-
+        this->player->speed.y -= SPEED;
     }
     if (IsKeyDown(KEY_S)) {
-
+        this->player->speed.y += SPEED;
     }
     if (IsKeyDown(KEY_D)) {
-
+        this->player->speed.x += SPEED;
     }
     if (IsKeyDown(KEY_A)) {
-
+        this->player->speed.x -= SPEED;
     }
     // WILL BE REMOVED LATER
     if (IsKeyPressed(KEY_R)) {
@@ -97,7 +108,7 @@ void Game::init() {
         .zoom = 1.0f,
     };
     std::shared_ptr<Player> player = std::make_shared<Player>(
-        Player(100)
+        Player(500)
     );
     this->objman.addObject(player);
     this->player = player;

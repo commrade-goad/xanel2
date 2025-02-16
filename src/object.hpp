@@ -17,7 +17,7 @@ public:
 
     Object();
     Object(Rectangle rec, int z_index);
-    ~Object();
+    virtual ~Object();
     void render();
 };
 

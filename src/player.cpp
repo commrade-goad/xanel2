@@ -1,5 +1,6 @@
 #include "player.hpp"
 
+// TODO: add way to move so we can see the camera moving.
 Player::Player(size_t maxSpeed) {
     this->speed = {0, 0};
     this->maxSpeed = maxSpeed;

@@ -11,7 +11,8 @@ public:
     Player();
     Player(size_t maxSpeed);
     Player(size_t maxSpeed, Rectangle rec, size_t z_index);
-    ~Player();
+    // virtual just tell the compiler that it can be overwritten by the same function that have diff body
+    virtual ~Player();
 };
 
 #endif // PLAYER_HPP_

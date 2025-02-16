@@ -3,6 +3,7 @@
 
 #include "raylib.h"
 #include "object.hpp"
+#include "player.hpp"
 
 struct Game {
 public:
@@ -10,7 +11,7 @@ public:
     const char* name;
     Camera2D cam;
     ObjectManager objman;
-    std::shared_ptr<Object> player;
+    std::shared_ptr<Player> player;
 
     void logic(float dt);
     void draw();
