@@ -13,5 +13,9 @@ Player::Player(size_t maxSpeed, Rectangle rec, size_t z_index) : Object(rec, z_i
     this->maxSpeed = maxSpeed;
 };
 
+void Player::render() {
+    DrawRectangleRec(this->rec, GREEN);
+}
+
 
 Player::~Player() {}

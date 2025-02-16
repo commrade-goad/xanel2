@@ -23,6 +23,9 @@ Game::~Game() {
 }
 
 void Game::logic(float dt) {
+    if (this->player == nullptr) {
+        return;
+    }
     // pan camera to player.
     Vector2 newCamPos = {
         .x = std::lerp(this->cam.target.x, this->player->rec.x, dt * CAMSPEED),
@@ -37,6 +40,10 @@ void Game::logic(float dt) {
 
     // player movement
     const size_t maxSpeed = this->player->maxSpeed;
+    if (this->player->speed.x + this->player->speed.y >= this->player->maxSpeed) {
+        this->player->speed.x /= 1.5;
+        this->player->speed.y /= 1.5;
+    }
     this->player->rec.x += std::clamp(this->player->speed.x, -(float)maxSpeed, (float)maxSpeed) * dt;
     this->player->rec.y += std::clamp(this->player->speed.y, -(float)maxSpeed, (float)maxSpeed) * dt;
     this->player->speed.x *= 0.2;
@@ -71,6 +78,9 @@ void Game::drawFromCamera() {
 }
 
 void Game::processInput() {
+    if (this->player == nullptr) {
+        return;
+    }
     static const int SPEED = this->player->maxSpeed/2;
     // so this is the cpp way of doing `Player* p = (Player*)this->player`
     /*auto p = std::dynamic_pointer_cast<Player>(this->player);*/
@@ -88,7 +98,10 @@ void Game::processInput() {
     }
     // WILL BE REMOVED LATER
     if (IsKeyPressed(KEY_R)) {
-        this->objman.remObject(this->player->id);
+        // the remObject with id is broken
+        // remObject will not delete the shared_ptr
+        this->objman.remObject(this->player);
+        this->player = nullptr;
     }
 }
 
@@ -107,10 +120,14 @@ void Game::init() {
         .rotation = 0.0f,
         .zoom = 1.0f,
     };
+    std::shared_ptr<Object> bg = std::make_shared<Object>(
+        Object((Rectangle){.x = 0, .y = 0, .width = 500, .height = 500}, 0)
+    );
     std::shared_ptr<Player> player = std::make_shared<Player>(
         Player(500)
     );
     this->objman.addObject(player);
+    this->objman.addObject(bg);
     this->player = player;
 }
 

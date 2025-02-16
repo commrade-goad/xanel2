@@ -18,7 +18,7 @@ public:
     Object();
     Object(Rectangle rec, int z_index);
     virtual ~Object();
-    void render();
+    virtual void render();
 };
 
 struct ObjectManager {
