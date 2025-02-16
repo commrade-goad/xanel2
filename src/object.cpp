@@ -42,6 +42,7 @@ void ObjectManager::remObject(std::shared_ptr<Object> obj) {
     }
 }
 
+// TODO: this thing is broken
 void ObjectManager::remObject(size_t id) {
     std::shared_ptr<Object> optr = this->getObject(id);
     if (optr) {
@@ -49,6 +50,7 @@ void ObjectManager::remObject(size_t id) {
     }
 }
 
+// TODO: this thing is broken
 std::shared_ptr<Object> ObjectManager::getObject(size_t id) {
     for (auto& sdata : this->sortedData) {
         for (auto& obj : sdata.second) {

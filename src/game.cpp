@@ -98,8 +98,6 @@ void Game::processInput() {
     }
     // WILL BE REMOVED LATER
     if (IsKeyPressed(KEY_R)) {
-        // the remObject with id is broken
-        // remObject will not delete the shared_ptr
         this->objman.remObject(this->player);
         this->player = nullptr;
     }
@@ -140,4 +138,3 @@ void Game::gameLoop() {
         this->draw();
     }
 }
-
