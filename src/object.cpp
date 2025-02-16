@@ -25,9 +25,8 @@ ObjectManager::ObjectManager() {
 
 ObjectManager::~ObjectManager() {}
 
-std::shared_ptr<Object> ObjectManager::addObject(std::shared_ptr<Object> obj) {
+void ObjectManager::addObject(std::shared_ptr<Object> obj) {
     this->sortedData[obj->z_index].push_back(obj);
-    return obj;
 }
 
 void ObjectManager::remObject(std::shared_ptr<Object> obj) {

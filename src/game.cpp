@@ -98,7 +98,8 @@ void Game::init() {
     std::shared_ptr<Object> player = std::make_shared<Object>(
         Object({.x = 0, .y = 0, .width = 100, .height = 100}, 1)
     );
-    this->player = this->objman.addObject(player);
+    this->objman.addObject(player);
+    this->player = player;
 }
 
 void Game::gameLoop() {

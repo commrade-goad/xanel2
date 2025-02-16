@@ -14,9 +14,6 @@ public:
 
     bool operator==(const Object& other) const {
         return this->id == other.id;
-            /*this->z_index == other.z_index &&*/
-            /*this->rec.x == other.rec.x &&*/
-            /*this->rec.y == other.rec.y;*/
     }
 
     Object(Rectangle rec, int z_index);
@@ -31,7 +28,7 @@ public:
     ObjectManager();
     ~ObjectManager();
 
-    std::shared_ptr<Object> addObject(std::shared_ptr<Object> obj);
+    void addObject(std::shared_ptr<Object> obj);
     void remObject(std::shared_ptr<Object> obj);
     void remObject(size_t id);
     std::shared_ptr<Object> getObject(size_t id);
