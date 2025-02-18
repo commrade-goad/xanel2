@@ -98,7 +98,7 @@ void Game::processInput() {
     }
     // WILL BE REMOVED LATER
     if (IsKeyPressed(KEY_R)) {
-        this->objman.remObject(this->player);
+        this->objman.remObject(this->player->id);
         this->player = nullptr;
     }
 }
@@ -119,10 +119,10 @@ void Game::init() {
         .zoom = 1.0f,
     };
     std::shared_ptr<Object> bg = std::make_shared<Object>(
-        Object((Rectangle){.x = 0, .y = 0, .width = 500, .height = 500}, 0)
+        Object((Rectangle){.x = 0, .y = 0, .width = 500, .height = 500}, 0, 2)
     );
     std::shared_ptr<Player> player = std::make_shared<Player>(
-        Player(500)
+        Player(500, 1)
     );
     this->objman.addObject(player);
     this->objman.addObject(bg);

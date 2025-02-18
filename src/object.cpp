@@ -5,11 +5,10 @@
 
 Object::Object() {}
 
-Object::Object(Rectangle rec, int z_index) {
+Object::Object(Rectangle rec, int z_index, size_t id) {
     this->rec = rec;
     this->z_index = z_index;
-    size_t uniqueId = reinterpret_cast<size_t>(this);
-    this->id = uniqueId;
+    this->id = id;
 }
 
 Object::~Object() {}
@@ -44,20 +43,12 @@ void ObjectManager::remObject(std::shared_ptr<Object> obj) {
 
 // TODO: this thing is broken
 void ObjectManager::remObject(size_t id) {
-    std::shared_ptr<Object> optr = this->getObject(id);
-    if (optr) {
-        this->remObject(optr);
-    }
-}
-
-// TODO: this thing is broken
-std::shared_ptr<Object> ObjectManager::getObject(size_t id) {
-    for (auto& sdata : this->sortedData) {
-        for (auto& obj : sdata.second) {
+    for (auto [z_index, objects] : this->sortedData) {
+        for (auto obj : objects) {
             if (obj->id == id) {
-                return obj;
+                this->remObject(obj);
+                return;
             }
         }
     }
-    return nullptr;
 }

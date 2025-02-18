@@ -16,7 +16,7 @@ public:
     }
 
     Object();
-    Object(Rectangle rec, int z_index);
+    Object(Rectangle rec, int z_index, size_t id);
     virtual ~Object();
     virtual void render();
 };
@@ -31,7 +31,7 @@ public:
     void addObject(std::shared_ptr<Object> obj);
     void remObject(std::shared_ptr<Object> obj);
     void remObject(size_t id);
-    std::shared_ptr<Object> getObject(size_t id);
+    /*std::shared_ptr<Object> getObject(size_t id);*/
 };
 
 #endif // OBJECT_HPP_
