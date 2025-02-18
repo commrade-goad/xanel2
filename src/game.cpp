@@ -103,7 +103,7 @@ void Game::processInput() {
     }
 }
 
-void Game::init(size_t objectCounter) {
+void Game::init() {
     this->objman = ObjectManager();
     // init camera
     this->cam = {
@@ -119,21 +119,18 @@ void Game::init(size_t objectCounter) {
         .zoom = 1.0f,
     };
     std::shared_ptr<Player> player = std::make_shared<Player>(
-        Player(500, objectCounter)
+        Player(500)
     );
-    objectCounter++;
     std::shared_ptr<Object> bg = std::make_shared<Object>(
-        Object((Rectangle){.x = 0, .y = 0, .width = 500, .height = 500}, 0, objectCounter)
+        Object((Rectangle){.x = 0, .y = 0, .width = 500, .height = 500}, 0)
     );
-    objectCounter++;
     this->objman.addObject(player);
     this->objman.addObject(bg);
     this->player = player;
 }
 
 void Game::gameLoop() {
-    size_t objectCounter = 0;
-    this->init(objectCounter);
+    this->init();
     while (!WindowShouldClose()) {
         float dt = GetFrameTime();
         this->processInput();

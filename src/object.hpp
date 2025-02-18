@@ -16,7 +16,7 @@ public:
     }
 
     Object();
-    Object(Rectangle rec, int z_index, size_t id);
+    Object(Rectangle rec, int z_index);
     virtual ~Object();
     virtual void render();
 };
@@ -24,6 +24,7 @@ public:
 struct ObjectManager {
 public:
     std::unordered_map<int, std::vector<std::shared_ptr<Object>>> sortedData;
+    size_t counter;
 
     ObjectManager();
     ~ObjectManager();

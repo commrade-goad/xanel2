@@ -1,15 +1,15 @@
 #include "object.hpp"
 #include "raylib.h"
-#include <iostream>
+#include <cstdint>
 
 // OBJECT
 
 Object::Object() {}
 
-Object::Object(Rectangle rec, int z_index, size_t id) {
+Object::Object(Rectangle rec, int z_index) {
     this->rec = rec;
     this->z_index = z_index;
-    this->id = id;
+    this->id = SIZE_MAX;
 }
 
 Object::~Object() {}
@@ -23,11 +23,14 @@ void Object::render() {
 
 ObjectManager::ObjectManager() {
     this->sortedData.reserve(10);
+    this->counter = 0;
 }
 
 ObjectManager::~ObjectManager() {}
 
 void ObjectManager::addObject(std::shared_ptr<Object> obj) {
+    this->counter += 1;
+    obj->id = this->counter;
     this->sortedData[obj->z_index].push_back(obj);
 }
 
@@ -38,6 +41,7 @@ void ObjectManager::remObject(std::shared_ptr<Object> obj) {
         auto a_pos = std::ranges::find(sdata.begin(), sdata.end(), obj);
         if (a_pos != sdata.end()) {
             sdata.erase(a_pos);
+            this->counter -= 1;
         }
     }
 }
