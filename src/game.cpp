@@ -40,9 +40,9 @@ void Game::logic(float dt) {
 
     // player movement
     const size_t maxSpeed = this->player->maxSpeed;
-    if (this->player->speed.x + this->player->speed.y >= this->player->maxSpeed) {
-        this->player->speed.x /= 1.5;
-        this->player->speed.y /= 1.5;
+    if (std::abs(this->player->speed.x) + std::abs(this->player->speed.y) > this->player->maxSpeed) {
+        this->player->speed.x /= 1.3;
+        this->player->speed.y /= 1.3;
     }
     this->player->rec.x += std::clamp(this->player->speed.x, -(float)maxSpeed, (float)maxSpeed) * dt;
     this->player->rec.y += std::clamp(this->player->speed.y, -(float)maxSpeed, (float)maxSpeed) * dt;
@@ -103,7 +103,7 @@ void Game::processInput() {
     }
 }
 
-void Game::init() {
+void Game::init(size_t objectCounter) {
     this->objman = ObjectManager();
     // init camera
     this->cam = {
@@ -118,19 +118,22 @@ void Game::init() {
         .rotation = 0.0f,
         .zoom = 1.0f,
     };
-    std::shared_ptr<Object> bg = std::make_shared<Object>(
-        Object((Rectangle){.x = 0, .y = 0, .width = 500, .height = 500}, 0, 2)
-    );
     std::shared_ptr<Player> player = std::make_shared<Player>(
-        Player(500, 1)
+        Player(500, objectCounter)
     );
+    objectCounter++;
+    std::shared_ptr<Object> bg = std::make_shared<Object>(
+        Object((Rectangle){.x = 0, .y = 0, .width = 500, .height = 500}, 0, objectCounter)
+    );
+    objectCounter++;
     this->objman.addObject(player);
     this->objman.addObject(bg);
     this->player = player;
 }
 
 void Game::gameLoop() {
-    this->init();
+    size_t objectCounter = 0;
+    this->init(objectCounter);
     while (!WindowShouldClose()) {
         float dt = GetFrameTime();
         this->processInput();

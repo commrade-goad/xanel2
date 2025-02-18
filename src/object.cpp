@@ -1,5 +1,6 @@
 #include "object.hpp"
 #include "raylib.h"
+#include <iostream>
 
 // OBJECT
 
@@ -41,7 +42,6 @@ void ObjectManager::remObject(std::shared_ptr<Object> obj) {
     }
 }
 
-// TODO: this thing is broken
 void ObjectManager::remObject(size_t id) {
     for (auto [z_index, objects] : this->sortedData) {
         for (auto obj : objects) {

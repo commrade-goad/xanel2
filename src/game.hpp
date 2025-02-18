@@ -17,7 +17,7 @@ public:
     void draw();
     void processInput();
     void drawFromCamera();
-    void init();
+    void init(size_t objectCounter);
 
     Game(const char* name, Vector2 wsize);
     ~Game();
