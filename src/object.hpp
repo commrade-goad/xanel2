@@ -2,8 +2,8 @@
 #define OBJECT_HPP_
 #include <unordered_map>
 #include <vector>
-#include <memory>
 #include "raylib.h"
+#include "def.hpp"
 
 struct Object {
 public:
@@ -23,14 +23,14 @@ public:
 
 struct ObjectManager {
 public:
-    std::unordered_map<int, std::vector<std::shared_ptr<Object>>> sortedData;
+    std::unordered_map<int, std::vector<sptr_t<Object>>> sortedData;
     size_t counter;
 
     ObjectManager();
     ~ObjectManager();
 
-    void addObject(std::shared_ptr<Object> obj);
-    void remObject(std::shared_ptr<Object> obj);
+    void addObject(sptr_t<Object> obj);
+    void remObject(sptr_t<Object> obj);
     void remObject(size_t id);
     /*std::shared_ptr<Object> getObject(size_t id);*/
 };

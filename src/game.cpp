@@ -118,10 +118,10 @@ void Game::init() {
         .rotation = 0.0f,
         .zoom = 1.0f,
     };
-    std::shared_ptr<Player> player = std::make_shared<Player>(
+    sptr_t<Player> player = std::make_shared<Player>(
         Player(500)
     );
-    std::shared_ptr<Object> bg = std::make_shared<Object>(
+    sptr_t<Object> bg = std::make_shared<Object>(
         Object((Rectangle){.x = 0, .y = 0, .width = 500, .height = 500}, 0)
     );
     this->objman.addObject(player);

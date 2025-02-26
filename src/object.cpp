@@ -28,16 +28,16 @@ ObjectManager::ObjectManager() {
 
 ObjectManager::~ObjectManager() {}
 
-void ObjectManager::addObject(std::shared_ptr<Object> obj) {
+void ObjectManager::addObject(sptr_t<Object> obj) {
     this->counter += 1;
     obj->id = this->counter;
     this->sortedData[obj->z_index].push_back(obj);
 }
 
-void ObjectManager::remObject(std::shared_ptr<Object> obj) {
+void ObjectManager::remObject(sptr_t<Object> obj) {
     auto ur_pos = this->sortedData.find(obj->z_index);
     if (ur_pos != this->sortedData.end()) {
-        std::vector<std::shared_ptr<Object>>& sdata = this->sortedData[obj->z_index];
+        std::vector<sptr_t<Object>>& sdata = this->sortedData[obj->z_index];
         auto a_pos = std::ranges::find(sdata.begin(), sdata.end(), obj);
         if (a_pos != sdata.end()) {
             sdata.erase(a_pos);

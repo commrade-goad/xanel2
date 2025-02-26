@@ -11,7 +11,7 @@ public:
     const char* name;
     Camera2D cam;
     ObjectManager objman;
-    std::shared_ptr<Player> player;
+    sptr_t<Player> player;
 
     void logic(float dt);
     void draw();
