@@ -19,6 +19,7 @@ public:
     Object(Rectangle rec, int z_index);
     virtual ~Object();
     virtual void render();
+    virtual void logic(float dt);
 };
 
 struct ObjectManager {
@@ -32,7 +33,7 @@ public:
     void addObject(sptr_t<Object> obj);
     void remObject(sptr_t<Object> obj);
     void remObject(size_t id);
-    /*std::shared_ptr<Object> getObject(size_t id);*/
+    sptr_t<Object> getObject(size_t id);
 };
 
 #endif // OBJECT_HPP_

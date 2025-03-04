@@ -18,6 +18,9 @@ void Object::render() {
     DrawRectangleRec(this->rec, BLACK);
 }
 
+void Object::logic(float dt) {
+}
+
 // OBJECT MANAGER
 // TODO: add sync to resync the sortedData with the new z-index.
 
@@ -55,4 +58,15 @@ void ObjectManager::remObject(size_t id) {
             }
         }
     }
+}
+
+sptr_t<Object> ObjectManager::getObject(size_t id) {
+    for (const auto& [z_index, objects] : this->sortedData) {
+        for (auto obj : objects) {
+            if (obj->id == id) {
+                return obj;
+            }
+        }
+    }
+    return nullptr;
 }

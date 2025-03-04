@@ -33,13 +33,22 @@ void Game::logic(float dt) {
     };
 
     static const float Tolerance = 0.02f;
-    if (Tolerance > newCamPos.x || Tolerance > newCamPos.y) {
-        this->cam.target = newCamPos;
-        this->cam.offset = (Vector2){
-            .x = (this->window_size.x - this->player->rec.width) / 2.0f,
-            .y = (this->window_size.y - this->player->rec.height) / 2.0f,
-        };
-    } // maybe just teleport it idk...
+    const Vector2 diff = {
+        .x = std::fabs(newCamPos.x - this->cam.target.x),
+        .y = std::fabs(newCamPos.y - this->cam.target.y),
+    };
+    // i have this but whatever...
+    if (diff.x <= Tolerance) {
+        newCamPos.x = this->cam.target.x;
+    }
+    if (diff.y <= Tolerance) {
+        newCamPos.y = this->cam.target.y;
+    }
+    this->cam.target = newCamPos;
+    this->cam.offset = (Vector2){
+        .x = (this->window_size.x - this->player->rec.width) / 2.0f,
+        .y = (this->window_size.y - this->player->rec.height) / 2.0f,
+    };
 
     // player movement
     this->player->logic(dt);
