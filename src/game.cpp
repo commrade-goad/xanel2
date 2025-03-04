@@ -5,7 +5,7 @@
 #include <cmath>
 #include <memory>
 
-#define CAMSPEED 30
+#define CAMSPEED 25
 
 Game::Game(const char* name, Vector2 wsize) {
     SetTraceLogLevel(LOG_ERROR);
@@ -31,23 +31,20 @@ void Game::logic(float dt) {
         .x = std::lerp(this->cam.target.x, this->player->rec.x, dt * CAMSPEED),
         .y = std::lerp(this->cam.target.y, this->player->rec.y, dt * CAMSPEED)
     };
-    // TODO: make if the movement is 0.01f it will not move the cam
-    this->cam.target = newCamPos;
-    this->cam.offset = (Vector2){
-        .x = (this->window_size.x - this->player->rec.width) / 2.0f,
-        .y = (this->window_size.y - this->player->rec.height) / 2.0f,
-    };
+
+    static const float Tolerance = 0.02f;
+    if (Tolerance > newCamPos.x || Tolerance > newCamPos.y) {
+        this->cam.target = newCamPos;
+        this->cam.offset = (Vector2){
+            .x = (this->window_size.x - this->player->rec.width) / 2.0f,
+            .y = (this->window_size.y - this->player->rec.height) / 2.0f,
+        };
+    } // maybe just teleport it idk...
 
     // player movement
-    const size_t maxSpeed = this->player->maxSpeed;
-    if (std::abs(this->player->speed.x) + std::abs(this->player->speed.y) > this->player->maxSpeed) {
-        this->player->speed.x /= 1.3;
-        this->player->speed.y /= 1.3;
-    }
-    this->player->rec.x += std::clamp(this->player->speed.x, -(float)maxSpeed, (float)maxSpeed) * dt;
-    this->player->rec.y += std::clamp(this->player->speed.y, -(float)maxSpeed, (float)maxSpeed) * dt;
-    this->player->speed.x *= 0.2;
-    this->player->speed.y *= 0.2;
+    this->player->logic(dt);
+    
+    // TODO: add for loops for object vector to do stuff.
 }
 
 void Game::draw() {
@@ -96,11 +93,12 @@ void Game::processInput() {
     if (IsKeyDown(KEY_A)) {
         this->player->speed.x -= SPEED;
     }
-    // WILL BE REMOVED LATER
-    if (IsKeyPressed(KEY_R)) {
-        this->objman.remObject(this->player->id);
-        this->player = nullptr;
-    }
+
+    // EXAMPLE of removing object from objman
+    /* if (IsKeyPressed(KEY_R)) {
+          this->objman.remObject(this->player->id);
+          this->player = nullptr;
+    } */
 }
 
 void Game::init() {

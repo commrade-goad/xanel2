@@ -14,6 +14,7 @@ public:
     // virtual just tell the compiler that it can be overwritten by the same function that have diff body
     virtual ~Player();
     void render();
+    void logic(float dt);
 };
 
 #endif // PLAYER_HPP_
