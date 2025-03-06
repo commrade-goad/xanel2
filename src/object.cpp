@@ -31,10 +31,11 @@ ObjectManager::ObjectManager() {
 
 ObjectManager::~ObjectManager() {}
 
-void ObjectManager::addObject(sptr_t<Object> obj) {
+size_t ObjectManager::addObject(sptr_t<Object> obj) {
     this->counter += 1;
     obj->id = this->counter;
     this->sortedData[obj->z_index].push_back(obj);
+    return obj->id;
 }
 
 void ObjectManager::remObject(sptr_t<Object> obj) {

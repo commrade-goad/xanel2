@@ -30,7 +30,8 @@ public:
     ObjectManager();
     ~ObjectManager();
 
-    void addObject(sptr_t<Object> obj);
+    // addObject will return id
+    size_t addObject(sptr_t<Object> obj);
     void remObject(sptr_t<Object> obj);
     void remObject(size_t id);
     sptr_t<Object> getObject(size_t id);

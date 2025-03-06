@@ -50,10 +50,13 @@ void Game::logic(float dt) {
         .y = (this->window_size.y - this->player->rec.height) / 2.0f,
     };
 
-    // player movement
-    this->player->logic(dt);
-    
-    // TODO: add for loops for object vector to do stuff.
+    // since player is inside the objman now we can
+    // just use loop to call the logic method.
+    for (auto& [z_index, objects] : this->objman.sortedData) {
+        for (auto& obj : objects) {
+            obj->logic(dt);
+        }
+    }
 }
 
 void Game::draw() {
