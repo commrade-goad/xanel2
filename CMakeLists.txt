@@ -21,7 +21,7 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(raylib)
 
-set(FILE_IN src/main.cpp src/game.cpp src/object.cpp src/player.cpp)
+set(FILE_IN src/main.cpp src/game.cpp src/object.cpp src/player.cpp src/assets.cpp)
 
 add_executable(${PROJECT_NAME} ${FILE_IN})
 
