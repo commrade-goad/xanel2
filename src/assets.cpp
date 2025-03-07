@@ -28,14 +28,12 @@ void AssetsManager::loadAssets(std::string& name, std::string& img_path) {
 
 void AssetsManager::unLoadTexture(std::string& name) {
     Texture2D* ctxt = this->CheckTexture(name);
-    size_t idx = 0;
     if (ctxt != nullptr) {
         for (auto& data: this->data) {
             if (data.first == name) {
                 UnloadTexture(data.second);
                 break;
             }
-            idx++;
         }
         this->data.erase(name);
     }
