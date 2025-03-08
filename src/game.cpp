@@ -8,7 +8,7 @@
 #define CAMSPEED 25
 
 Game::Game(const char* name, Vector2 wsize) {
-    SetTraceLogLevel(LOG_ERROR);
+    /*SetTraceLogLevel(LOG_ERROR);*/
     InitWindow(wsize.x, wsize.y, name);
     SetTargetFPS(60);
     SetExitKey(KEY_Q);
@@ -106,16 +106,15 @@ void Game::processInput() {
         this->player->speed.x -= SPEED;
     }
 
-    // EXAMPLE of removing object from objman
-    /* if (IsKeyPressed(KEY_R)) {
-          this->objman.remObject(this->player->id);
-          this->player = nullptr;
-    } */
 }
 
 void Game::init() {
     this->objman = ObjectManager();
     this->assm = AssetsManager();
+
+    // load texture
+    this->assm.loadAssets("not_found", "./assets/txt_none.png");
+    Texture2D* nFound = this->assm.GetTexture("not_found");
 
     // init camera
     this->cam = {
@@ -131,7 +130,7 @@ void Game::init() {
         .zoom = 1.0f,
     };
     sptr_t<Player> player = std::make_shared<Player>(
-        Player(500)
+        Player(500, nFound)
     );
     sptr_t<Object> bg = std::make_shared<Object>(
         Object((Rectangle){.x = 0, .y = 0, .width = 500, .height = 500}, 0)
@@ -139,9 +138,7 @@ void Game::init() {
     this->objman.addObject(player);
     this->objman.addObject(bg);
     this->player = player;
-
-    // load texture
-    this->assm.loadAssets("not_found", "./assets/txt_none.png");
+    this->player->text = nFound;
 }
 
 void Game::gameLoop() {

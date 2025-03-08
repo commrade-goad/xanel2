@@ -13,6 +13,8 @@ set(BUILD_SHARED_LIBS OFF)
 set(GLFW_BUILD_WAYLAND ON)
 set(PLATFORM Desktop)
 
+SET( CMAKE_CXX_FLAGS -ggdb)
+
 FetchContent_Declare(
     raylib
     GIT_REPOSITORY https://github.com/raysan5/raylib

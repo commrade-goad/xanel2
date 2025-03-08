@@ -1,6 +1,7 @@
 #include "player.hpp"
+#include "raylib.h"
 
-Player::Player(size_t maxSpeed) {
+Player::Player(size_t maxSpeed, Texture2D* txt) {
     this->speed = {0, 0};
     this->maxSpeed = maxSpeed;
     this->rec = {.x = 0, .y = 0, .width = 100, .height = 100};
@@ -14,7 +15,22 @@ Player::Player(size_t maxSpeed, Rectangle rec, size_t z_index) : Object(rec, z_i
 };
 
 void Player::render() {
-    DrawRectangleRec(this->rec, GREEN);
+    DrawTexturePro(
+        *this->text,
+        (Rectangle) {
+            0,
+            0,
+            static_cast<float>(this->text->width),
+            static_cast<float>(this->text->height)
+        },
+        this->rec,
+        (Vector2) {
+            0,0
+        },
+        0.0f,
+        WHITE
+    );
+    /*DrawRectangleRec(this->rec, GREEN);*/
 }
 
 void Player::logic(float dt) {
