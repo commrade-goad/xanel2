@@ -8,7 +8,7 @@
 #define CAMSPEED 25
 
 Game::Game(const char* name, Vector2 wsize) {
-    /*SetTraceLogLevel(LOG_ERROR);*/
+    SetTraceLogLevel(LOG_ERROR);
     InitWindow(wsize.x, wsize.y, name);
     SetTargetFPS(60);
     SetExitKey(KEY_Q);
@@ -37,7 +37,7 @@ void Game::logic(float dt) {
         .x = std::fabs(newCamPos.x - this->cam.target.x),
         .y = std::fabs(newCamPos.y - this->cam.target.y),
     };
-    // i have this but whatever...
+    // i hate this but whatever...
     if (diff.x <= Tolerance) {
         newCamPos.x = this->cam.target.x;
     }
@@ -110,11 +110,10 @@ void Game::processInput() {
 
 void Game::init() {
     this->objman = ObjectManager();
-    this->assm = AssetsManager();
+    this->assman = AssetsManager();
 
     // load texture
-    this->assm.loadAssets("not_found", "./assets/txt_none.png");
-    Texture2D* nFound = this->assm.GetTexture("not_found");
+    Texture2D* loadedTxt = this->assman.loadAssets("not_found", "./assets/txt_none.png");
 
     // init camera
     this->cam = {
@@ -130,7 +129,7 @@ void Game::init() {
         .zoom = 1.0f,
     };
     sptr_t<Player> player = std::make_shared<Player>(
-        Player(500, nFound)
+        Player(500, loadedTxt)
     );
     sptr_t<Object> bg = std::make_shared<Object>(
         Object((Rectangle){.x = 0, .y = 0, .width = 500, .height = 500}, 0)
@@ -138,7 +137,6 @@ void Game::init() {
     this->objman.addObject(player);
     this->objman.addObject(bg);
     this->player = player;
-    this->player->text = nFound;
 }
 
 void Game::gameLoop() {

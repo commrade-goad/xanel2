@@ -6,12 +6,13 @@ Player::Player(size_t maxSpeed, Texture2D* txt) {
     this->maxSpeed = maxSpeed;
     this->rec = {.x = 0, .y = 0, .width = 100, .height = 100};
     this->z_index = 1;
-    this->id = id;
+    this->text = txt;
 };
 
-Player::Player(size_t maxSpeed, Rectangle rec, size_t z_index) : Object(rec, z_index) {
+Player::Player(size_t maxSpeed, Texture2D* txt, Rectangle rec, size_t z_index) : Object(rec, z_index) {
     this->speed = {0, 0};
     this->maxSpeed = maxSpeed;
+    this->text = txt;
 };
 
 void Player::render() {
@@ -30,7 +31,6 @@ void Player::render() {
         0.0f,
         WHITE
     );
-    /*DrawRectangleRec(this->rec, GREEN);*/
 }
 
 void Player::logic(float dt) {

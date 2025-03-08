@@ -1,5 +1,4 @@
 #include "assets.hpp"
-#include "raylib.h"
 
 AssetsManager::AssetsManager() {
     // by default reserve 10
@@ -16,14 +15,14 @@ Texture2D* AssetsManager::GetTexture(std::string name) {
     return nullptr;
 };
 
-void AssetsManager::loadAssets(std::string name, std::string img_path) {
+Texture2D* AssetsManager::loadAssets(std::string name, std::string img_path) {
     Texture2D* ctxt = this->GetTexture(name);
     if (ctxt != nullptr) {
-        return;
+        return nullptr;
     }
     Texture2D txt = LoadTexture(img_path.c_str());
     this->data.insert_or_assign(name, txt);
-    return;
+    return &this->data[name];
 }
 
 void AssetsManager::unLoadTexture(std::string name) {

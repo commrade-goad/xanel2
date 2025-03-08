@@ -11,7 +11,7 @@ public:
 
     Player();
     Player(size_t maxSpeed, Texture2D* txt);
-    Player(size_t maxSpeed, Rectangle rec, size_t z_index);
+    Player(size_t maxSpeed, Texture2D* txt, Rectangle rec, size_t z_index);
     // virtual just tell the compiler that it can be overwritten by the same function that have diff body
     virtual ~Player();
     void render();

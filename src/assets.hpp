@@ -11,7 +11,7 @@ public:
     AssetsManager();
     ~AssetsManager();
 
-    void loadAssets(std::string name, std::string img_path);
+    Texture2D* loadAssets(std::string name, std::string img_path);
     Texture2D* GetTexture(std::string name);
     void unLoadTexture(std::string name);
 };

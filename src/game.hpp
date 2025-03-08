@@ -13,7 +13,7 @@ public:
     Camera2D cam;
     ObjectManager objman;
     sptr_t<Player> player;
-    AssetsManager assm;
+    AssetsManager assman;
 
     void logic(float dt);
     void draw();
