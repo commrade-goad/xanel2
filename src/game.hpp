@@ -4,6 +4,7 @@
 #include "raylib.h"
 #include "object.hpp"
 #include "player.hpp"
+#include "assets.hpp"
 
 struct Game {
 public:
@@ -12,6 +13,7 @@ public:
     Camera2D cam;
     ObjectManager objman;
     sptr_t<Player> player;
+    AssetsManager assm;
 
     void logic(float dt);
     void draw();

@@ -7,7 +7,7 @@ AssetsManager::AssetsManager() {
 };
 
 // if texture with that name didnt exist return nullptr
-Texture2D* AssetsManager::CheckTexture(std::string& name) {
+Texture2D* AssetsManager::GetTexture(std::string name) {
     for (auto& data: this->data) {
         if (data.first == name) {
             return &data.second;
@@ -16,8 +16,8 @@ Texture2D* AssetsManager::CheckTexture(std::string& name) {
     return nullptr;
 };
 
-void AssetsManager::loadAssets(std::string& name, std::string& img_path) {
-    Texture2D* ctxt = this->CheckTexture(name);
+void AssetsManager::loadAssets(std::string name, std::string img_path) {
+    Texture2D* ctxt = this->GetTexture(name);
     if (ctxt != nullptr) {
         return;
     }
@@ -26,8 +26,8 @@ void AssetsManager::loadAssets(std::string& name, std::string& img_path) {
     return;
 }
 
-void AssetsManager::unLoadTexture(std::string& name) {
-    Texture2D* ctxt = this->CheckTexture(name);
+void AssetsManager::unLoadTexture(std::string name) {
+    Texture2D* ctxt = this->GetTexture(name);
     if (ctxt != nullptr) {
         for (auto& data: this->data) {
             if (data.first == name) {

@@ -115,6 +115,8 @@ void Game::processInput() {
 
 void Game::init() {
     this->objman = ObjectManager();
+    this->assm = AssetsManager();
+
     // init camera
     this->cam = {
         .offset = {
@@ -137,6 +139,9 @@ void Game::init() {
     this->objman.addObject(player);
     this->objman.addObject(bg);
     this->player = player;
+
+    // load texture
+    this->assm.loadAssets("not_found", "./assets/txt_none.png");
 }
 
 void Game::gameLoop() {

@@ -11,9 +11,9 @@ public:
     AssetsManager();
     ~AssetsManager();
 
-    void loadAssets(std::string& name, std::string& img_path);
-    Texture2D* CheckTexture(std::string& name);
-    void unLoadTexture(std::string& name);
+    void loadAssets(std::string name, std::string img_path);
+    Texture2D* GetTexture(std::string name);
+    void unLoadTexture(std::string name);
 };
 
 #endif // ASSETS_HPP_
